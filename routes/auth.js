@@ -3,13 +3,13 @@ const User = require("../models/User");
 
 //register.
 router.post("/register", async (req, res) => {
-	const user = await new User({
-		username: "palash",
-		email: "palashasati@gmail.com",
-		password: "asdjasjd",
-	});
-    await user.save()
-    res.send("Ok")
+	const newUser = new User(req.body);
+	try {
+		const user = await newUser.save();
+		res.status(200).json(user);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 module.exports = router;
